@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import braintree
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,14 @@ EMAIL_HOST_USER = 'shopmanage7@gmail.com'
 EMAIL_HOST_PASSWORD = 'M2t8zUmPQg'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
+
+BRAINTREE_MERCHANT_ID = 'phrgp3k3zpj6tppx'
+BRAINTREE_PUBLIC_KEY = 'd9bcgr4sp2jw9t4p'
+BRAINTREE_PRIVATE_KEY = '6889ea066740221a03b11cd38bda5a8c'
+
+braintree.Configuration.configure(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
