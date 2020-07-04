@@ -142,3 +142,5 @@ braintree.Configuration.configure(
     BRAINTREE_PUBLIC_KEY,
     BRAINTREE_PRIVATE_KEY
 )
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')

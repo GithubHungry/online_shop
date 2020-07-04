@@ -18,7 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from orders.views import admin_order_detail
+
 urlpatterns = [
+    # path('admin/order/', admin_order_detail, name='admin_order_detail'),
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls')),
     path('payment/', include('payment.urls', namespace='payment')),
