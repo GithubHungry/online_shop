@@ -21,12 +21,13 @@ from django.conf.urls.static import static
 from orders.views import admin_order_detail
 
 urlpatterns = [
-    # path('admin/order/', admin_order_detail, name='admin_order_detail'),
+    path('coupons/', include('coupons.urls', namespace='coupons')),
     path('admin/', admin.site.urls),
     path('cart/', include('cart.urls')),
     path('payment/', include('payment.urls', namespace='payment')),
     path('shop/', include('shop.urls')),
     path('orders/', include('orders.urls', namespace='orders')),
+
 
 ]
 

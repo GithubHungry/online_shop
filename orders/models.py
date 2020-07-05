@@ -1,6 +1,10 @@
+from decimal import Decimal
+
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 from shop.models import Product
+from coupons.models import Coupon
 
 
 # Create your models here.
@@ -16,11 +20,15 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     braintree_id = models.CharField(max_length=225, blank=True)
 
+    coupon = models.ForeignKey(Coupon, related_name='orders', null=True, blank=True, on_delete=models.SET_NULL)
+    discount = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
+
     class Meta:
         ordering = ('-created',)
 
     def get_total_cost(self):
-        return sum(item.get_cost() for item in self.items.all())
+        total_cost = sum(item.get_cost() for item in self.items.all())
+        return total_cost - total_cost * (self.discount/Decimal('100'))
 
     def __str__(self):
         return 'Order {}'.format(self.id)
