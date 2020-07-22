@@ -8,11 +8,11 @@ from django.http import HttpResponse
 from .models import Order, OrderItem
 
 
-# def order_pdf(obj):
-#     return mark_safe('<a href="{}">PDF</a>'.format(reverse('orders:admin_order_pdf', args=[obj.id])))
+def order_pdf(obj):
+    return mark_safe('<a href="{}">PDF</a>'.format(reverse('orders:admin_order_pdf', args=[obj.id])))
 
 
-# order_pdf.short_description = 'Invoice'
+order_pdf.short_description = 'Invoice'
 
 
 def order_detail(obj):
@@ -52,7 +52,7 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'id', 'first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'paid', 'created', 'updated',
-        order_detail)
+        order_detail, order_pdf)
     list_filter = ('paid', 'created', 'updated')
     inlines = [OrderItemInline]
     actions = [export_to_csv]
